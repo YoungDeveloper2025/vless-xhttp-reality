@@ -188,8 +188,34 @@ generate_config() {
         {
           tag: "block",
           protocol: "blackhole"
+        },
+        {
+          tag: "IPv4",
+          protocol: "freedom",
+          settings: {
+            domainStrategy: "UseIPv4"
+          }
         }
-      ]
+      ],
+      routing: {
+        rules: [
+          {
+            type: "field",
+            domain: [
+              "geosite:apple",
+              "geosite:meta",
+              "geosite:google",
+              "geosite:openai",
+              "geosite:spotify",
+              "geosite:netflix",
+              "geosite:reddit",
+              "geosite:speedtest"
+            ],
+            outboundTag: "IPv4"
+          }
+        ],
+        domainStrategy: "AsIs"
+      }
     }' > "$output_file"
 }
 write_config() {
